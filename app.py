@@ -59,15 +59,13 @@ default_turn_velocity = 1000
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
-@app.before_request
-def log_request_info():
-    print('Headers: %s', request.headers)
-    print('Body: %s', request.get_data())
+
 @app.route('/take_picture', methods=['GET'])
 def api_take_picture():
-    print("Takine a picture")
+    print("Taking a picture")
     camera = Camera.from_robot(robot, 'camera')
     img = asyncio.run(camera.get_image("image/png"))
+    print("Returning a picture")
     return img, 200, {'ContentType:':'image/png'}
 
 @app.route('/move_forward', methods=['GET'])
