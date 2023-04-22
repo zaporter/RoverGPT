@@ -53,8 +53,8 @@ def execute_api_action(action):
     }
     return json.dumps({}), 200, {'ContentType':'application/json'}
 
-default_movement_velocity = 1000
-default_turn_velocity = 500
+default_movement_velocity = 2000
+default_turn_velocity = 1000
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
