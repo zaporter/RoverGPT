@@ -27,10 +27,17 @@ async def connect():
     return await RobotClient.at_address(address_from_viam_app, opts)
 
 async def move(base, velocity, distance_mm):
-    await base.move_straight(velocity=velocity, distance=distance_mm, timeout=(distance_mm/velocity + 1.0))
+    try:
+        await base.move_straight(velocity=velocity, distance=distance_mm, timeout=(distance_mm/velocity + 1.0))
+    except Exception:
+        print("Threw an error.")
+
 
 async def turn(base, angle, velocity):
-    await base.spin(angle=angle, velocity=velocity, timeout=(angle/velocity + 1.0))
+    try:
+        await base.spin(angle=angle, velocity=velocity, timeout=(angle/velocity + 1.0))
+    except Exception:
+        print("Threw an error.")
 
 def execute_api_action(action):
     print("Started")
@@ -47,8 +54,8 @@ def execute_api_action(action):
     }
     return json.dumps({}), 200, {'ContentType':'application/json'}
 
-default_movement_velocity = 50
-default_turn_velocity = 25
+default_movement_velocity = 100
+default_turn_velocity = 50
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
