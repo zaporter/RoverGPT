@@ -53,8 +53,8 @@ def execute_api_action(action):
     }
     return json.dumps({}), 200, {'ContentType':'application/json'}
 
-default_movement_velocity = 100
-default_turn_velocity = 50
+default_movement_velocity = 500
+default_turn_velocity = 100
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
@@ -65,23 +65,27 @@ def log_request_info():
 
 @app.route('/move_forward', methods=['GET'])
 def api_move_forward():
+    print("Moving forwards")
     distance_cm = int(request.args.get('distance_cm', default_movement_distance_cm))
     distance_mm = distance_cm * 10
     return execute_api_action(lambda base: move(base, default_movement_velocity, distance_mm))
 
 @app.route('/move_backward', methods=['GET'])
 def api_move_backward():
+    print("Moving backwards")
     distance_cm = int(request.args.get('distance_cm', default_movement_distance_cm))
     distance_mm = distance_cm * 10
     return execute_api_action(lambda base: move(base, -1 * default_movement_velocity, distance_mm))
 
 @app.route('/rotate_left', methods=['GET'])
 def api_rotate_left():
+    print("Turning left")
     turn_angle = int(request.args.get('deg', default_turn_angle))
     return execute_api_action(lambda base: turn(base, turn_angle, default_turn_velocity))
 
 @app.route('/rotate_right', methods=['GET'])
 def api_rotate_right():
+    print("Turning right")
     turn_angle = int(request.args.get('deg', default_turn_angle))
     return execute_api_action(lambda base: turn(base, -1 * turn_angle, default_turn_velocity))
 
