@@ -1,6 +1,7 @@
 import asyncio
 from flask import Flask, jsonify, send_from_directory, request
-from viam.components.base import Base, Camera
+from viam.components.base import Base
+from viam.components.camera import Camera
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
 import os
