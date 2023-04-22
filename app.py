@@ -60,19 +60,19 @@ default_turn_velocity = 1000
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
-def serve_pil_image(pil_img):
-    img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')
+# def serve_pil_image(pil_img):
+#     img_io = BytesIO()
+#     pil_img.save(img_io, 'JPEG', quality=70)
+#     img_io.seek(0)
+#     return send_file(img_io, mimetype='image/jpeg')
 
-@app.route('/take_picture', methods=['GET'])
-async def api_take_picture():
-    print("Taking a picture")
-    camera = Camera.from_robot(robot, 'cam')
-    img = await camera.get_image("image/jpeg")
-    print("Returning a picture")
-    return serve_pil_image(img)
+# @app.route('/take_picture', methods=['GET'])
+# async def api_take_picture():
+#     print("Taking a picture")
+#     camera = Camera.from_robot(robot, 'cam')
+#     img = await camera.get_image("image/jpeg")
+#     print("Returning a picture")
+#     return serve_pil_image(img)
 
 @app.route('/move_forward', methods=['GET'])
 def api_move_forward():
