@@ -63,7 +63,7 @@ default_turn_angle = 90
 @app.route('/take_picture', methods=['GET'])
 def api_take_picture():
     print("Taking a picture")
-    camera = Camera.from_robot(robot, 'camera')
+    camera = Camera.from_robot(robot, 'cam')
     img = asyncio.run(camera.get_image("image/png"))
     print("Returning a picture")
     return img, 200, {'ContentType:':'image/png'}
