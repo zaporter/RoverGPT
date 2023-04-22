@@ -33,11 +33,14 @@ async def turn(base, angle, velocity):
     await base.spin(angle=angle, velocity=velocity)
 
 def execute_api_action(action):
+    print("Started")
     robot = asyncio.run(connect())
+    print("Running action")
     rover_base = Base.from_robot(robot, 'viam_base')
     asyncio.run(action(rover_base))
+    print("Closing")
     asyncio.run(robot.close())
-
+    print("Closed")
     response = {
         "response": "OK",
         "status": 200,
@@ -51,8 +54,8 @@ default_turn_angle = 90
 
 @app.before_request
 def log_request_info():
-    app.logger.debug('Headers: %s', request.headers)
-    app.logger.debug('Body: %s', request.get_data())
+    print('Headers: %s', request.headers)
+    print('Body: %s', request.get_data())
 
 @app.route('/move_forward', methods=['GET'])
 def api_move_forward():
