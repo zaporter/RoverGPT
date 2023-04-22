@@ -1,0 +1,31 @@
+openapi: 3.0.1
+info:
+  title: Viam Rover Plugin
+  description: A plugin that allows the user to control a Viam Rover using ChatGPT.
+  version: 'v1'
+servers:
+  - url: https://rover.latticeanimal.com
+paths:
+  /drive_forward:
+    post:
+      operationId: driveForward
+      summary: Drive the rover forward
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/driveForwardResponse'
+components:
+  schemas:
+    driveForwardResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the operation.
+        message:
+          type: string
+          description: A message describing the result of the operation.
+
