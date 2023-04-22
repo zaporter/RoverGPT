@@ -42,7 +42,7 @@ def execute_api_action(action):
         "response": "OK",
         "status": 200,
     }
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    return json.dumps({}), 200, {'ContentType':'application/json'}
 
 default_movement_velocity = 50
 default_turn_velocity = 25
