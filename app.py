@@ -45,5 +45,5 @@ def api_drive_forward():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5057)
 
