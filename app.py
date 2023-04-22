@@ -1,5 +1,5 @@
 import asyncio
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 from viam.components.base import Base
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
@@ -25,24 +25,49 @@ async def connect():
     )
     return await RobotClient.at_address(address_from_viam_app, opts)
 
+async def move(base, velocity, distance_mm):
+    await base.move_straight(velocity=velocity, distance=distance_mm)
 
-async def drive_forward(base):
-    # Moves the Viam Rover forward 500mm at 500mm/s
-    await base.move_straight(velocity=500, distance=500)
-    print("Rover moved forward")
+async def turn(base, angle, velocity):
+    await base.spin(angle=angle, velocity=velocity)
 
-@app.route('/drive_forward', methods=['POST'])
-def api_drive_forward():
+def execute_api_action(action):
     robot = asyncio.run(connect())
     rover_base = Base.from_robot(robot, 'viam_base')
-    asyncio.run(drive_forward(rover_base))
+    asyncio.run(action(rover_base))
     asyncio.run(robot.close())
 
     response = {
         "status": "success",
-        "message": "Rover moved forward"
     }
     return jsonify(response)
+
+default_movement_velocity = 50
+default_turn_velocity = 25
+default_movement_distance_cm = 50
+default_turn_angle = 90
+
+@app.route('/move_forward', methods=['GET'])
+def api_move_forward():
+    distance_cm = int(request.args.get('distance_cm', default_movement_distance_cm))
+    distance_mm = distance_cm * 10
+    return execute_api_action(lambda base: move(base, default_movement_velocity, distance_mm))
+
+@app.route('/move_backward', methods=['GET'])
+def api_move_backward():
+    distance_cm = int(request.args.get('distance_cm', default_movement_distance_cm))
+    distance_mm = distance_cm * 10
+    return execute_api_action(lambda base: move(base, -1 * default_movement_velocity, distance_mm))
+
+@app.route('/rotate_left', methods=['GET'])
+def api_rotate_left():
+    turn_angle = int(request.args.get('deg', default_turn_angle))
+    return execute_api_action(lambda base: turn(base, turn_angle, default_turn_velocity))
+
+@app.route('/rotate_right', methods=['GET'])
+def api_rotate_right():
+    turn_angle = int(request.args.get('deg', default_turn_angle))
+    return execute_api_action(lambda base: turn(base, -1 * turn_angle, default_turn_velocity))
 
 @app.route('/.well-known/<path:path>')
 def send_well_known(path):
@@ -54,4 +79,3 @@ def send_misc(path):
 
 if __name__ == '__main__':
     app.run(port=5057)
-
