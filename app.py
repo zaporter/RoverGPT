@@ -27,10 +27,10 @@ async def connect():
     return await RobotClient.at_address(address_from_viam_app, opts)
 
 async def move(base, velocity, distance_mm):
-    await base.move_straight(velocity=velocity, distance=distance_mm)
+    base.move_straight(velocity=velocity, distance=distance_mm)
 
 async def turn(base, angle, velocity):
-    await base.spin(angle=angle, velocity=velocity)
+    base.spin(angle=angle, velocity=velocity)
 
 def execute_api_action(action):
     print("Started")
