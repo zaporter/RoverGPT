@@ -1,31 +1,60 @@
 openapi: 3.0.1
 info:
   title: Viam Rover Plugin
-  description: A plugin that allows the user to control a Viam Rover using ChatGPT.
+  description: Plugin for controlling your rover-based body in the physical world. You have access to a camera and two motorized wheels.
   version: 'v1'
 servers:
   - url: https://rover.latticeanimal.com
 paths:
-  /drive_forward:
-    post:
-      operationId: driveForward
-      summary: Drive the rover forward
+  /move_forward:
+    get:
+      operationId: move_forward
+      summary: Move forward by a specified amount
+      parameters:
+        - in: distance_cm
+          name: distance_cm
+          schema:
+            type: integer
+          description: How far you want to move forward in centimeters
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/driveForwardResponse'
-components:
-  schemas:
-    driveForwardResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: The status of the operation.
-        message:
-          type: string
-          description: A message describing the result of the operation.
-
+  /move_backward:
+    get:
+      operationId: move_backward
+      summary: Move backwards by a specified amount
+      parameters:
+        - in: distance_cm
+          name: distance_cm
+          schema:
+            type: integer
+          description: How far you want to move backwards in centimeters
+      responses:
+        "200":
+          description: OK
+  /rotate_left:
+    get:
+      operationId: rotate_left
+      summary: Rotate to the left (in place)
+      parameters:
+        - in: deg
+          name: deg
+          schema:
+            type: integer
+          description: number of degrees to rotate
+      responses:
+        "200":
+          description: OK
+  /rotate_right:
+    get:
+      operationId: rotate_right
+      summary: Rotate to the right (in place)
+      parameters:
+        - in: deg
+          name: deg
+          schema:
+            type: integer
+          description: number of degrees to rotate
+      responses:
+        "200":
+          description: OK

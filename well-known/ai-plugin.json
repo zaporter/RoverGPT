@@ -3,7 +3,7 @@
   "name_for_human": "Viam Rover Plugin",
   "name_for_model": "viam_rover",
   "description_for_human": "Plugin for controlling a Viam Rover.",
-  "description_for_model": "Plugin for controlling a Viam Rover.",
+  "description_for_model": "Plugin for controlling your rover-based body in the physical world. You have access to a camera and two motorized wheels.",
   "auth": {
     "type": "none"
   },
