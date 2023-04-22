@@ -4,6 +4,7 @@ from viam.components.base import Base
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
 import os
+import json
 from dotenv import load_dotenv
 
 # Load environment variables from the .env file
@@ -41,7 +42,7 @@ def execute_api_action(action):
         "response": "OK",
         "status": 200,
     }
-    return jsonify(response)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 default_movement_velocity = 50
 default_turn_velocity = 25
