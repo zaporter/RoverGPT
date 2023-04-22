@@ -70,7 +70,7 @@ def serve_pil_image(pil_img):
 async def api_take_picture():
     print("Taking a picture")
     camera = Camera.from_robot(robot, 'cam')
-    img = camera.get_image("image/png")
+    img = camera.get_image("image/jpeg")
     print("Returning a picture")
     return serve_pil_image(img)
 
