@@ -1,5 +1,5 @@
 import asyncio
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from viam.components.base import Base
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
@@ -43,6 +43,14 @@ def api_drive_forward():
         "message": "Rover moved forward"
     }
     return jsonify(response)
+
+@app.route('/.well-known/<path:path>')
+def send_well_known(path):
+    return send_from_directory('well-known', path)
+
+@app.route('/misc/<path:path>')
+def send_misc(path):
+    return send_from_directory('misc', path)
 
 if __name__ == '__main__':
     app.run(port=5057)
