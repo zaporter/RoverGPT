@@ -38,7 +38,8 @@ def execute_api_action(action):
     asyncio.run(robot.close())
 
     response = {
-        "status": "success",
+        "response": "OK",
+        "status": 200,
     }
     return jsonify(response)
 
