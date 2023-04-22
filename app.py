@@ -16,6 +16,7 @@ address_from_viam_app = os.getenv('ADDRESS_FROM_VIAM_APP')
 
 app = Flask(__name__)
 
+
 async def connect():
     creds = Credentials(
         type='robot-location-secret',
@@ -25,6 +26,8 @@ async def connect():
         dial_options=DialOptions(credentials=creds)
     )
     return await RobotClient.at_address(address_from_viam_app, opts)
+
+robot = asyncio.run(connect())
 
 async def move(base, velocity, distance_mm):
     try:
@@ -40,14 +43,10 @@ async def turn(base, angle, velocity):
         print("Threw an error.")
 
 def execute_api_action(action):
-    print("Started")
-    robot = asyncio.run(connect())
     print("Running action")
     rover_base = Base.from_robot(robot, 'viam_base')
     asyncio.run(action(rover_base))
     print("Closing")
-    asyncio.run(robot.close())
-    print("Closed")
     response = {
         "response": "OK",
         "status": 200,
