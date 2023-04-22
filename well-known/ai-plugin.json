@@ -1,18 +1,18 @@
 {
-    "schema_version": "v1",
-    "name_for_human": "Viam Rover Plugin",
-    "name_for_model": "viam_rover",
-    "description_for_human": "Plugin for controlling a Viam Rover.",
-    "description_for_model": "Plugin for controlling a Viam Rover.",
-    "auth": {
-        "type": "none"
-    },
-    "api": {
-        "type": "openapi",
-        "url": "https://rover.latticeanimal.com/openapi.yaml",
-        "is_user_authenticated": false
-    },
-    "logo_url": "https://rover.latticeanimal.com/logo.png",
-    "contact_email": "jack.damon@viam.com",
-    "legal_info_url": "https://rover.latticeanimal.com/legal"
+  "schema_version": "v1",
+  "name_for_human": "Viam Rover Plugin",
+  "name_for_model": "viam_rover",
+  "description_for_human": "Plugin for controlling a Viam Rover.",
+  "description_for_model": "Plugin for controlling a Viam Rover.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rover.latticeanimal.com/.well-known/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://rover.latticeanimal.com/misc/logo.png",
+  "contact_email": "jack.damon@viam.com",
+  "legal_info_url": "https://rover.latticeanimal.com/legal"
 }
