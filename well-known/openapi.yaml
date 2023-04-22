@@ -11,7 +11,7 @@ paths:
       operationId: move_forward
       summary: Move forward by a specified amount
       parameters:
-        - in: distance_cm
+        - in: query
           name: distance_cm
           schema:
             type: integer
@@ -24,7 +24,7 @@ paths:
       operationId: move_backward
       summary: Move backwards by a specified amount
       parameters:
-        - in: distance_cm
+        - in: query
           name: distance_cm
           schema:
             type: integer
@@ -37,7 +37,7 @@ paths:
       operationId: rotate_left
       summary: Rotate to the left (in place)
       parameters:
-        - in: deg
+        - in: query
           name: deg
           schema:
             type: integer
@@ -50,7 +50,7 @@ paths:
       operationId: rotate_right
       summary: Rotate to the right (in place)
       parameters:
-        - in: deg
+        - in: query
           name: deg
           schema:
             type: integer
