@@ -1,6 +1,6 @@
 import asyncio
 from flask import Flask, jsonify, send_from_directory, request
-from viam.components.base import Base
+from viam.components.base import Base, Camera
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
 import os
@@ -62,6 +62,12 @@ default_turn_angle = 90
 def log_request_info():
     print('Headers: %s', request.headers)
     print('Body: %s', request.get_data())
+@app.route('/take_picture', methods=['GET'])
+def api_take_picture():
+    print("Takine a picture")
+    camera = Camera.from_robot(robot, 'camera')
+    img = asyncio.run(camera.get_image("image/png"))
+    return img, 200, {'ContentType:':'image/png'}
 
 @app.route('/move_forward', methods=['GET'])
 def api_move_forward():
