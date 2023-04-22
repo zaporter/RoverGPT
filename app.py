@@ -33,14 +33,14 @@ robot = asyncio.run(connect())
 
 async def move(base, velocity, distance_mm):
     try:
-        await base.move_straight(velocity=velocity, distance=distance_mm, timeout=(abs(distance_mm/velocity) + 1.0))
+        await base.move_straight(velocity=velocity, distance=distance_mm, timeout=(abs(distance_mm/velocity) + 3.0))
     except Exception:
         print("Threw an error.")
 
 
 async def turn(base, angle, velocity):
     try:
-        await base.spin(angle=angle, velocity=velocity, timeout=(abs(angle/velocity) + 1.0))
+        await base.spin(angle=angle, velocity=velocity, timeout=(abs(angle/velocity) + 3.0))
     except Exception:
         print("Threw an error.")
 
