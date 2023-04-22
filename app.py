@@ -48,6 +48,11 @@ default_turn_velocity = 25
 default_movement_distance_cm = 50
 default_turn_angle = 90
 
+@app.before_request
+def log_request_info():
+    app.logger.debug('Headers: %s', request.headers)
+    app.logger.debug('Body: %s', request.get_data())
+
 @app.route('/move_forward', methods=['GET'])
 def api_move_forward():
     distance_cm = int(request.args.get('distance_cm', default_movement_distance_cm))
